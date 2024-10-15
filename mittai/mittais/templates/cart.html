@@ -1,0 +1,117 @@
+<style>
+    .cart-container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+        border-radius: 8px;
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+    }
+  
+    .cart-header {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+  
+    .cart-item {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        margin-bottom: 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        background-color: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+  
+    .cart-item img {
+        width: 100px;
+        height: auto;
+        margin-right: 15px;
+        border-radius: 4px;
+    }
+  
+    .item-details {
+        flex-grow: 1;
+    }
+  
+    .item-title {
+        font-weight: bold;
+        color: #555;
+    }
+  
+    .item-price {
+        font-size: 18px;
+        color: #333;
+    }
+  
+    .item-quantity {
+        margin-top: 5px;
+        color: #777;
+    }
+  
+    .remove-button {
+        background-color: #ff4081;
+        color: white;
+        padding: 8px 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+  
+    .remove-button:hover {
+        background-color: #e91e63;
+    }
+  
+    .total {
+        font-size: 20px;
+        font-weight: bold;
+        text-align: right;
+        padding-top: 20px;
+        color: #333;
+    }
+  
+    .continue-button {
+        display: block;
+        margin-top: 20px;
+        background-color: #3498db;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+  
+    .continue-button:hover {
+        background-color: #2980b9;
+    }
+  </style>
+  
+  <div class="cart-container">
+    <h1 class="cart-header">Your Cart</h1>
+    
+    {% if cart_items %}
+    <div>
+        {% for cart_item in cart_items %}
+            <div class="cart-item">
+                <img src="{{ cart_item.movie.image.url }}" alt="{{ cart_item.movie.title }}">
+                <div class="item-details">
+                    <div class="item-title">{{ cart_item.movie.title }}</div>
+                    <div class="item-price">RS.{{ cart_item.movie.price }}</div>
+                    <div class="item-quantity">Quantity: {{ cart_item.quantity }}</div>
+                </div>
+                <a class="remove-button" href="{% url 'remove_from_cart' cart_item.movie.id %}">Remove</a>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="total">Total: RS.{{ total }}</div>
+{% else %}
+    <p style="text-align: center; color: #777;">Your cart is empty.</p>
+{% endif %}
+    
+    <a class="continue-button" href="{% url 'home' %}">Continue Shopping</a>
+  </div>
+  

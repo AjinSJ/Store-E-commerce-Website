@@ -1,0 +1,19 @@
+<div class="cart-container" style="max-width: 800px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; font-family: Arial, sans-serif;">
+    <h1 style="text-align: center; color: #333;">Your Cart</h1>
+    {% if cart_items and cart_items|length > 0 %}
+        <div style="margin-bottom: 20px;">
+            {% for cart_item in cart_items %}
+                <div class="cart-item" style="display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #eee;">
+                    <span style="flex: 1;">{{ cart_item.movie.title }} ({{ cart_item.quantity }})</span>
+                    <span style="flex: 0 0 100px; text-align: right;">${{ cart_item.movie.price }}</span>
+                    <a class="button" href="{% url 'remove_from_cart' cart_item.movie.id %}" style="background-color: #e74c3c; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none;">Remove</a>
+
+                </div>
+            {% endfor %}
+        </div>
+        <div class="total" style="font-size: 18px; font-weight: bold; text-align: right; padding-top: 10px;">Total: ${{ total }}</div>
+    {% else %}
+        <p style="text-align: center; color: #777;">Your cart is empty.</p>
+    {% endif %}
+    <a class="button" href="{% url 'home' %}" style="display: block; margin-top: 20px; background-color: #3498db; color: white; padding: 10px; text-align: center; border-radius: 5px; text-decoration: none;">Continue Shopping</a>
+</div>

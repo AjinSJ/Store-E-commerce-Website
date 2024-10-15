@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout for {{ movie.title }}</title>
+    <script async src="https://pay.google.com/gp/p/js/pay.js" onload="onGooglePayLoaded()"></script>
+    <script>
+        let paymentsClient;
+
+        function onGooglePayLoaded() {
+            paymentsClient = new google.pay.api.PaymentsClient({environment: 'TEST'}); // Change to 'PRODUCTION' in production
+            const button = paymentsClient.createButton({
+                onClick: onGooglePayClicked
+            });
+            document.getElementById('google-pay-button').appendChild(button);
+        }
+
+        function onGooglePayClicked() {
+            const paymentDataRequest = {
+                // Payment data request specifics
+                // Include your merchant ID, transaction details, etc.
+                apiVersion: 2,
+                apiVersionMinor: 0,
+                merchantInfo: {
+                    merchantId: 'YOUR_MERCHANT_ID', // Your Merchant ID
+                    merchantName: 'Your Merchant Name'
+                },
+                transactionInfo: {
+                    totalPriceStatus: 'FINAL',
+                    totalPrice: '{{ movie.price }}', // Total price for the transaction
+                    currencyCode: 'USD', // Adjust currency code as needed
+                },
+                // Add additional configurations as needed
+            };
+
+            paymentsClient.loadPaymentData(paymentDataRequest)
+                .then(function(paymentData) {
+                    // Handle payment data
+                    processPayment(paymentData);
+                })
+                .catch(function(err) {
+                    console.error("Error loading payment data", err);
+                });
+        }
+
+        function processPayment(paymentData) {
+            // Send payment data to your server for processing
+            fetch('/your/payment/endpoint/', {
+                method: 'POST',
+                body: JSON.stringify(paymentData),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Handle successful payment response
+                    window.location.href = '{% url "thank_you" %}'; // Redirect to thank you page
+                } else {
+                    // Handle payment errors
+                    console.error('Payment failed');
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Checkout for {{ movie.title }}</h1>
+    <p>Price: ${{ movie.price }}</p>
+
+    <div id="google-pay-button"></div>
+    <a href="{% url 'home' %}">Cancel</a>
+</body>
+</html>

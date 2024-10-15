@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - MITTAI-KADAI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            animation: fadeIn 1s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .container {
+            max-width: 600px;
+            width: 300px;
+            background: white;
+            padding: 20px;
+            border-radius: 56px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            margin: 20px 0;
+            color: #333;
+        }
+        .basket-icon {
+            font-size: 80px;
+            color: #ffa41c;
+            margin-bottom: 20px;
+        }
+        input {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 40px;
+            width: 100%;
+            transition: border-color 0.3s;
+        }
+        input:focus {
+            border-color: #ffa41c;
+            outline: none;
+        }
+        button {
+            padding: 10px;
+            background-color: #ffa41c;
+            color: white;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        button:hover {
+            background-color: #ff8c00;
+            transform: translateY(-2px);
+        }
+        .error-message {
+            color: red;
+            margin: 10px 0;
+        }
+        footer {
+            margin-top: 20px;
+        }
+        footer a {
+            color: #ffa41c;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        footer a:hover {
+            color: #ff8c00;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="basket-icon">
+            <i class="fas fa-shopping-cart"></i> <!-- Basket icon -->
+        </div>
+        <h1>Sign Up</h1>
+        
+        <form action="{% url 'register' %}" method="POST">
+            {% csrf_token %}
+            {{ form.non_field_errors }}  <!-- Display non-field errors -->
+            <div>
+                {{ form.username.label }}<br>
+                {{ form.username }}<br>
+                {{ form.username.errors }}  <!-- Display field-specific errors -->
+            </div>
+            <div>
+                {{ form.email.label }}<br>
+                {{ form.email }}<br>
+                {{ form.email.errors }}
+            </div>
+            <div>
+                {{ form.password.label }}<br>
+                {{ form.password }}<br>
+                {{ form.password.errors }}
+            </div>
+            <div>
+                {{ form.confirm_password.label }}<br>
+                {{ form.confirm_password }}<br>
+                {{ form.confirm_password.errors }}
+            </div>
+            <button type="submit">Register</button>
+        </form>
+        
+        <footer>
+            <p>Already have an account? <a href="{% url 'login' %}">Login Here</a></p>
+        </footer>
+    </div>
+</body>
+</html>

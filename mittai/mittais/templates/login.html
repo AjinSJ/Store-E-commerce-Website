@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MITTAI-KADAI | Login</title> <!-- Corrected title tag -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            width: 300px;
+            background: white;
+            padding: 20px;
+            border-radius: 56px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center; /* Center content */
+        }
+        h1 {
+            margin: 20px 0;
+        }
+        .basket-icon {
+            font-size: 80px; /* Adjust size as needed */
+            color: #ffa41c; /* Basket color */
+        }
+        input {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 40px;
+            width: 100%;
+        }
+        button {
+            padding: 10px;
+            background-color: #ffa41c;
+            color: white;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .alert {
+            color: red; /* Style for error messages */
+            margin: 10px 0;
+        }
+        footer {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="basket-icon">🛒</div> <!-- Basket icon -->
+        <h1>Sign In</h1>
+
+        <!-- Display messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}  <!-- Render form fields -->
+            <button type="submit">Login</button>
+        </form>
+        <footer>
+            <p>New here? <a href="{% url 'register' %}">Create your account</a></p>
+        </footer>
+    </div>
+</body>
+</html>

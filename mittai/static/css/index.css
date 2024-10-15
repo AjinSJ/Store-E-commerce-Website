@@ -1,0 +1,67 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #141414; /* Dark background */
+    color: white; /* Light text */
+}
+
+.navbar {
+    background-color: #e50914; /* Netflix red */
+    padding: 10px;
+    text-align: center;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.title {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.movie-list {
+    padding: 20px;
+}
+
+.movie-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center the items */
+    list-style-type: none;
+    padding: 0;
+}
+
+.movie-item {
+    margin: 10px;
+    width: 150px; /* Width of each movie card */
+    text-align: center;
+    position: relative;
+}
+
+.movie-image {
+    width: 100%; /* Make image responsive */
+    border-radius: 8px; /* Slightly round the corners */
+}
+
+.movie-title {
+    margin: 10px 0;
+}
+
+.movie-title a {
+    text-decoration: none;
+    color: white;
+}
+
+.movie-title a:hover {
+    color: #e50914; /* Change color on hover */
+}
+
+.no-image {
+    margin: 5px 0;
+    color: #999; /* Lighter text for description */
+}
